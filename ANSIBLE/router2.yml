@@ -1,0 +1,62 @@
+---
+
+- name: router2
+  gather_facts: false
+  hosts: cisco_router2
+
+  tasks:
+  - name: HSRP port g0/0/0.10
+    cisco.ios.ios_config:
+      lines:
+        - standby version 2
+        - standby 1 ip 192.168.0.1
+      parents: interface g0/0/0.10
+
+  - name: noshut g0/0/1
+    cisco.ios.ios_config:
+      lines:
+        - no shut
+      parents: interface g0/0/1
+
+  - name: Set up port g0/0/1.10
+    cisco.ios.ios_config:
+      lines:
+        - encapsulation dot1Q 10
+        - ip address 192.168.10.3 255.255.255.0
+      parents: interface g0/0/1.10
+
+  - name: Set up port g0/0/1.11
+    cisco.ios.ios_config:
+      lines:
+        - encapsulation dot1Q 11
+        - ip address 172.16.11.3 255.255.255.0
+      parents: interface g0/0/1.11
+
+  - name: HSRP port g0/0/1.10
+    cisco.ios.ios_config:
+      lines:
+        - standby version 2
+        - standby 2 ip 192.168.10.1
+      parents: interface g0/0/1.10
+
+  - name: HSRP port g0/0/1.11
+    cisco.ios.ios_config:
+      lines:
+        - standby version 2
+        - standby 3 ip 172.16.11.1
+      parents: interface g0/0/1.11
+
+  - name: DHCP Exclusions
+    cisco.ios.ios_config:
+      lines:
+        - ip dhcp excluded-address 192.168.10.1 192.168.10.150
+        - ip dhcp excluded-address 192.168.10.201 192.168.10.255
+
+  - name: DHCP pool
+    cisco.ios.ios_config:
+      lines:
+        - network 192.168.10.1 255.255.255.0
+        - default-router 192.168.10.1
+        - dns-server 192.168.10.1
+      parents: ip dhcp pool dhcp1
+  

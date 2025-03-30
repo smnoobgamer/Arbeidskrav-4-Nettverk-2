@@ -1,0 +1,39 @@
+---
+
+- name: switch2
+  gather_facts: false
+  hosts: cisco_switch2
+
+  tasks:
+  - name: Setting up Vlan 10
+    cisco.ios.ios_config:
+      lines:
+        - name N10
+      parents: vlan 10
+
+  - name: Setting up Vlan 20
+    cisco.ios.ios_config:
+      lines:
+        - name N20
+      parents: vlan 20
+
+  - name: access vlan 10
+    cisco.ios.ios_config:
+      lines:
+        - switchport mode access
+        - switchport access vlan 10
+      parents: interface Fa0/2
+
+  - name: access vlan 20
+    cisco.ios.ios_config:
+      lines:
+        - switchport mode access
+        - switchport access vlan 20
+      parents: interface Fa0/3
+
+  - name: Etherchannel
+    cisco.ios.ios_config:
+      lines:
+        - switchport mode trunk
+        - channel-group 1 mode desirable
+      parents: interface range Fa0/23-24
