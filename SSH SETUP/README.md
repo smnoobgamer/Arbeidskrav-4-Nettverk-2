@@ -48,6 +48,6 @@
 
 8. Skriv inn portnavn formatet til switchen f.eks. g1/0/ (Ikke ta med tallet som tilsvarer den spesefike porten)
 
-9 Om du trenger en access port så skriver du inn "1" om ikke skriver du "2" (Anbefales å velga ja om dette er switchen MGMT pcen er kobla til)
+9. Om du trenger en access port så skriver du inn "1" om ikke skriver du "2" (Anbefales å velga ja om dette er switchen MGMT pcen er kobla til)
 
 10. Om du valgte Yes i forrge input skriver du inn nummeret til porten du skal ha som access port
