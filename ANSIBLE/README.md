@@ -4,7 +4,9 @@
 
 1. Ansible er satt opp riktig
 
-2. Enhetene er kobla opp riktig og satt opp med ssh
+2. cisco.ios ansible module er installert
+
+3. Enhetene er kobla opp riktig og satt opp med ssh
 
 
 ## Hvordan skriptene brukes
